@@ -35,5 +35,25 @@ namespace firstdraft_desktop_ui
         {
 
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Uploading File");
+
+            // open file dialog   
+            OpenFileDialog open = new OpenFileDialog();
+            // image filters  
+            open.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
+
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                // display image in picture box  
+                pictureBox1.Image = new Bitmap(open.FileName);
+            }
+
+            MessageBox.Show("Filename is " + open.FileName);
+
+            FileHandling.uploadFile(open.FileName);
+        }
     }
 }
