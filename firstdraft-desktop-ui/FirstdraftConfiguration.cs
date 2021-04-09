@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -43,17 +44,47 @@ namespace firstdraft_desktop_ui
             // open file dialog   
             OpenFileDialog open = new OpenFileDialog();
             // image filters  
-            open.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
+            open.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp;*.txt;*.pdf)|*.jpg; *.jpeg; *.gif; *.bmp; *.txt; *.pdf";
 
-            if (open.ShowDialog() == DialogResult.OK)
+            if (open.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            String file_suffix = FirstdraftUiUtility.getSuffix(open.FileName);
+
+            MessageBox.Show("Suffix is " + file_suffix);
+
+            if (file_suffix.Equals("jpg") == true 
+                || file_suffix.Equals("jpeg")  == true
+                || file_suffix.Equals("gif") == true
+                || file_suffix.Equals("bmp") == true)
             {
                 // display image in picture box  
+                richTextBox1.Hide();
                 pictureBox1.Image = new Bitmap(open.FileName);
+            }
+            else if(file_suffix.Equals("txt") == true)
+            {
+                string text = File.ReadAllText(open.FileName);
+                richTextBox1.Text = text;
+                //richTextBox1.Text = "!..Welcome to FirstDraft..!";
+            }
+            else //pdf for now
+            {
+                string text = "Format not supported";
+                richTextBox1.Text = text;
+                //richTextBox1.Text = "!..Welcome to FirstDraft..!";
             }
 
             MessageBox.Show("Filename is " + open.FileName);
 
             FileHandling.uploadFile(open.FileName);
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

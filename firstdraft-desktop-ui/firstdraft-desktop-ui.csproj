@@ -62,6 +62,7 @@
     <Compile Include="FirstdraftConfiguration.Designer.cs">
       <DependentUpon>FirstdraftConfiguration.cs</DependentUpon>
     </Compile>
+    <Compile Include="FirstdraftUiUtility.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FirstdraftConfiguration.resx">
