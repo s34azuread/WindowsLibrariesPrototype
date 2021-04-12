@@ -62,17 +62,22 @@ namespace firstdraft_desktop_ui
             {
                 // display image in picture box  
                 richTextBox1.Hide();
+                pictureBox1.Show();
                 pictureBox1.Image = new Bitmap(open.FileName);
             }
             else if(file_suffix.Equals("txt") == true)
             {
                 string text = File.ReadAllText(open.FileName);
+                pictureBox1.Hide();
+                richTextBox1.Show();
                 richTextBox1.Text = text;
                 //richTextBox1.Text = "!..Welcome to FirstDraft..!";
             }
             else //pdf for now
             {
                 string text = "Format not supported";
+                pictureBox1.Hide();
+                richTextBox1.Show();
                 richTextBox1.Text = text;
                 //richTextBox1.Text = "!..Welcome to FirstDraft..!";
             }
