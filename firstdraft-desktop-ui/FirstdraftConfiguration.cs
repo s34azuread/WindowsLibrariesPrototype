@@ -84,7 +84,15 @@ namespace firstdraft_desktop_ui
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
+        }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Downloading File");
+
+            FileHandling.downloadFile();
+
+            MessageBox.Show("File downloaded");
         }
     }
 }
