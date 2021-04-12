@@ -90,7 +90,41 @@ namespace firstdraft_desktop_ui
         {
             MessageBox.Show("Downloading File");
 
-            FileHandling.downloadFile();
+            String downloaded_file = FileHandling.downloadFile();
+
+            String file_suffix = FirstdraftUiUtility.getSuffix(downloaded_file);
+
+            MessageBox.Show("Suffix is " + file_suffix);
+
+            if (file_suffix.Equals("jpg") == true
+                || file_suffix.Equals("jpeg") == true
+                || file_suffix.Equals("gif") == true
+                || file_suffix.Equals("bmp") == true)
+            {
+                // display image in picture box  
+                richTextBox1.Hide();
+                pictureBox1.Show();
+                pictureBox1.Image = new Bitmap(downloaded_file);
+            }
+            else if (file_suffix.Equals("txt") == true)
+            {
+                pictureBox1.Hide();
+                richTextBox1.Show();
+                string text = File.ReadAllText(downloaded_file);
+                richTextBox1.Text = text;
+                //richTextBox1.Text = "!..Welcome to FirstDraft..!";
+            }
+            else //pdf for now
+            {
+                pictureBox1.Hide();
+                richTextBox1.Show();
+                string text = "Format not supported";
+                richTextBox1.Text = text;
+                //richTextBox1.Text = "!..Welcome to FirstDraft..!";
+            }
+
+            MessageBox.Show("Filename is " + downloaded_file);
+
 
             MessageBox.Show("File downloaded");
         }
