@@ -85,6 +85,19 @@ namespace firstdraft_desktop_ui
             MessageBox.Show("Filename is " + open.FileName);
 
             FileHandling.uploadFile(open.FileName);
+
+            if(FileHandling.isOperationSuccess() == false)
+            {
+                string text = "Upload operation failed";
+                pictureBox1.Hide();
+                richTextBox1.Show();
+                richTextBox1.Text = text;
+
+                MessageBox.Show("Upload operation failed");
+
+                return;
+            }
+            MessageBox.Show("Upload operation success!!");
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
@@ -96,6 +109,16 @@ namespace firstdraft_desktop_ui
             MessageBox.Show("Downloading File");
 
             String downloaded_file = FileHandling.downloadFile();
+            if (downloaded_file == null)
+            {
+                pictureBox1.Hide();
+                richTextBox1.Show();
+                string text = "Error while downloading";
+                richTextBox1.Text = text;
+
+                MessageBox.Show("Error while downloading");
+                return;
+            }
 
             String file_suffix = FirstdraftUiUtility.getSuffix(downloaded_file);
 
