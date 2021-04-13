@@ -62,17 +62,22 @@ namespace firstdraft_desktop_ui
             {
                 // display image in picture box  
                 richTextBox1.Hide();
+                pictureBox1.Show();
                 pictureBox1.Image = new Bitmap(open.FileName);
             }
             else if(file_suffix.Equals("txt") == true)
             {
                 string text = File.ReadAllText(open.FileName);
+                pictureBox1.Hide();
+                richTextBox1.Show();
                 richTextBox1.Text = text;
                 //richTextBox1.Text = "!..Welcome to FirstDraft..!";
             }
             else //pdf for now
             {
                 string text = "Format not supported";
+                pictureBox1.Hide();
+                richTextBox1.Show();
                 richTextBox1.Text = text;
                 //richTextBox1.Text = "!..Welcome to FirstDraft..!";
             }
@@ -80,11 +85,96 @@ namespace firstdraft_desktop_ui
             MessageBox.Show("Filename is " + open.FileName);
 
             FileHandling.uploadFile(open.FileName);
+
+            if(FileHandling.isOperationSuccess() == false)
+            {
+                string text = "Upload operation failed";
+                pictureBox1.Hide();
+                richTextBox1.Show();
+                richTextBox1.Text = text;
+
+                MessageBox.Show("Upload operation failed");
+
+                return;
+            }
+            MessageBox.Show("Upload operation success!!");
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
+        }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Downloading File");
+
+            String downloaded_file = FileHandling.downloadFile();
+            if (downloaded_file == null)
+            {
+                pictureBox1.Hide();
+                richTextBox1.Show();
+                string text = "Error while downloading";
+                richTextBox1.Text = text;
+
+                MessageBox.Show("Error while downloading");
+                return;
+            }
+
+            String file_suffix = FirstdraftUiUtility.getSuffix(downloaded_file);
+
+            MessageBox.Show("Suffix is " + file_suffix);
+
+            if (file_suffix.Equals("jpg") == true
+                || file_suffix.Equals("jpeg") == true
+                || file_suffix.Equals("gif") == true
+                || file_suffix.Equals("bmp") == true)
+            {
+                // display image in picture box  
+                richTextBox1.Hide();
+                pictureBox1.Show();
+                pictureBox1.Image = new Bitmap(downloaded_file);
+            }
+            else if (file_suffix.Equals("txt") == true)
+            {
+                pictureBox1.Hide();
+                richTextBox1.Show();
+                string text = File.ReadAllText(downloaded_file);
+                richTextBox1.Text = text;
+                //richTextBox1.Text = "!..Welcome to FirstDraft..!";
+            }
+            else //pdf for now
+            {
+                pictureBox1.Hide();
+                richTextBox1.Show();
+                string text = "Format not supported";
+                richTextBox1.Text = text;
+                //richTextBox1.Text = "!..Welcome to FirstDraft..!";
+            }
+
+            MessageBox.Show("Filename is " + downloaded_file);
+
+
+            MessageBox.Show("File downloaded");
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if(sendHeartbeat.heartbeat_state == sendHeartbeat.SERVER_UNREACHABLE_STATE)
+            {
+                MessageBox.Show("Server is unreachable");
+            }   
+            else if (sendHeartbeat.heartbeat_state == sendHeartbeat.HEARTBEAT_CONNECTION_ONGOING)
+            {
+                MessageBox.Show("Heartbeat connection is ongoing");
+            }
+            else if (sendHeartbeat.heartbeat_state == sendHeartbeat.HEARTBEAT_RUNNING_STATE)
+            {
+                MessageBox.Show("Heartbeat connection is sent on schedule");
+            }
+            else if (sendHeartbeat.heartbeat_state == sendHeartbeat.HEARTBEAT_STOPPED_STATE)
+            {
+                MessageBox.Show("Heartbeat connection's schedule is stopped");
+            }
         }
     }
 }

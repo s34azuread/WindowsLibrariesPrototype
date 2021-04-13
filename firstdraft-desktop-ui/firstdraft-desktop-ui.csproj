@@ -41,7 +41,7 @@
     </Reference>
     <Reference Include="firstdraft-command-library, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\firstdraft-desktop-prototype-2\firstdraft-desktop-ui\firstdraft-commands-library\firstdraft-command-library\firstdraft-command-library\bin\Debug\netstandard2.0\firstdraft-command-library.dll</HintPath>
+      <HintPath>..\..\firstdraft-commands-library\firstdraft-command-library\firstdraft-command-library\bin\Debug\netstandard2.0\firstdraft-command-library.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
