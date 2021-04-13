@@ -156,5 +156,25 @@ namespace firstdraft_desktop_ui
 
             MessageBox.Show("File downloaded");
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if(sendHeartbeat.heartbeat_state == sendHeartbeat.SERVER_UNREACHABLE_STATE)
+            {
+                MessageBox.Show("Server is unreachable");
+            }   
+            else if (sendHeartbeat.heartbeat_state == sendHeartbeat.HEARTBEAT_CONNECTION_ONGOING)
+            {
+                MessageBox.Show("Heartbeat connection is ongoing");
+            }
+            else if (sendHeartbeat.heartbeat_state == sendHeartbeat.HEARTBEAT_RUNNING_STATE)
+            {
+                MessageBox.Show("Heartbeat connection is sent on schedule");
+            }
+            else if (sendHeartbeat.heartbeat_state == sendHeartbeat.HEARTBEAT_STOPPED_STATE)
+            {
+                MessageBox.Show("Heartbeat connection's schedule is stopped");
+            }
+        }
     }
 }
